@@ -1,0 +1,34 @@
+Discussion on the #packer-tool IRC channel on Freenode
+
+<Horgix> mcbadass: well, it will never be nil, it will be initialized to the default value of the type when initializing the struct
+<Horgix> in the example you linked for example, there would be no way for the user to explicitely define "Username" to "" in the config, because then it will automatically be changed in "SYSTEM", and I would like to avoid this behavior
+<mcbadass> no, that's exactly what it does
+<mcbadass> when you run that in your config, you write something like:
+<mcbadass>       "type": "windows-update",
+<mcbadass>       "update_limit": "50",
+<mcbadass>       "username": "auser",
+<mcbadass>       "password": "apassword"
+<mcbadass> if "username" is provided, it does not set it to SYSTEM
+<mcbadass> you could also assign the value as a string and then parse it
+<Horgix> mcbadass: if "username" is provided and is different than "" yes
+<Horgix> what if in your config you have something like:
+<Horgix>       "type": "windows-update",
+<Horgix>       "update_limit": "50",
+<Horgix>       "username": "",
+<Horgix>       "password": "apassword"
+<Horgix> ?
+<Horgix> in this case, from what I'm understanding, it will fall under the empty string comparison and be set to SYSTEM
+<Horgix> and I would definitely find that surprising as a user of the module which is just trying to explicitely ensure that the username is empty. (even if yes, this kind of thing would be documented; but the behavior would not be intuitive)
+<mcbadass> yeah, i reread what you wrote and saw that.  what about just accepting a string and sanitizing it?
+<Horgix> what do you mean?
+<Horgix> (just in case: https://gist.github.com/Horgix/d66df237fbe92485b2c78ad757adc37b )
+<mcbadass> change it to StringBoolParam string `mapstructure:"boolparam"`
+<mcbadass> and then write a little function
+<mcbadass> to take values: "yes, true, 1" = true
+<mcbadass> "no, false, 0" = false
+<mcbadass> and then convert that to a boolean
+<mcbadass> you're sanitizing the user input
+<mcbadass> if it doesn't conform to yes, true, or whatever (or you could limit it to true or false) then error
+<Horgix> Oh, that would indeed work
+<Horgix> thanks for explaining what you had in mind
+<Horgix> that would definitely work, but I think that's not really clean :( What the point of having typed datastructures if it's just to use strings everywhere and parse them? Anyway, thanks for your suggestion, I'll go with that for now and open a issue on the Packer repo to see if that's something that should and/or can be adressed
