@@ -1,9 +1,9 @@
 package main
 
 import (
-	"log"
 	"github.com/Horgix/packer-builder-defaultconf/defaultconf"
 	"github.com/hashicorp/packer/packer/plugin"
+	"log"
 )
 
 func main() {
