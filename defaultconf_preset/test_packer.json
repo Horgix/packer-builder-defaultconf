@@ -1,0 +1,7 @@
+{
+  "builders": [
+    {
+      "type":           "defaultconf_preset"
+    }
+  ]
+}
