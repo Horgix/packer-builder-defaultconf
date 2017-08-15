@@ -15,9 +15,9 @@ type Config struct {
 
 	// Create: a boolean stating, for example, if we should create
 	// something or not
-	Create bool `mapstructure:"generate"`
+	Create bool `mapstructure:"create"`
 	// Number: let's say the number of things to create
-	Number int `mapstructure:"amount"`
+	Number int `mapstructure:"number"`
 }
 
 type Builder struct {
