@@ -1,7 +1,10 @@
 # Packer Builder - DefaultConf
 
-This repository intends to be used as a demo for a question / feature request
-to Packer.
+**This repository is no longer updated in any way since it was just a quick
+demo for myself**
+
+This repository intends to be used as a demo for a question I asked myself
+about default configuration values for Packer plugins.
 
 The main question is: **How to properly assign defaults to some configurations
 fields of a Packer Builder?**. This can, of course, probably be applied to
