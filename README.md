@@ -64,7 +64,7 @@ underlying [mapstructure](https://github.com/mitchellh/mapstructure) library
   before config.Decode(), but that seems a bit weird to me (I will do it if
   that's the only way, but expected to be able to do something cleaner)
 
-### Solution 1
+### Solution 2
 
 Idea:
 
@@ -73,7 +73,7 @@ Idea:
 
 Problem:
 
-The `config.Decode()` initializes a totally new config and assign it,
+The `config.Decode()` initializes a totally new config and assigns it,
 overriding pre-set values. This is demonstrated in the `defaultconf_preset`
 directory:
 
@@ -96,7 +96,7 @@ Prepare(): Number config Parameter:  0
 Prepare(): Prepared. Returning.
 ```
 
-### Solution 2
+### Solution 3
 
 Idea:
 
@@ -110,19 +110,14 @@ check if the value is the type's default one; what if the user (him/her)self
 defined it to the type's default? This is demonstrated in the
 `defaultconf_postcmp` directory.
 
-## Details
+### Solution 4
 
+Suggested by *mcbadass* on IRC (`#packer-tool` on Freenode).
 
+Just accept strings as parameters, and parse/sanitize it.
 
+- `Create` would then no longer be a boolean, but a string, and we would then
+  be able to differenciate empty string
 
-## The issue submitted to the Packer repo
-
-Bla
-
-So, how **should** I go to be able to have default values for my configuration?
-How would you do it?
-
-Does it make sense to transform this issue into a Feature Request for
-`config.Decode()` to handle passing default values in argument? If so, I am
-willing to try to implement it myself since I'm actively looking to improve on
-Go with something concrete.
+wait. In any way, such a thing is counter-intuitive and it would be required to
+read the documentation.
