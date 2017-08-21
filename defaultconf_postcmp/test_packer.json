@@ -1,0 +1,9 @@
+{
+  "builders": [
+    {
+      "type":   "defaultconf_postcmp",
+      "create": true,
+      "number": 42
+    }
+  ]
+}
