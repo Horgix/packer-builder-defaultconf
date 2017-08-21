@@ -21,14 +21,14 @@ type Config struct {
 }
 
 type Builder struct {
-	config *Config
+	config Config
 }
 
 func NewBuilder() *Builder {
 	log.Println("NewBuilder(): Creating new Builder...")
 	var b *Builder = new(Builder)
 	log.Println("NewBuilder(): Initializing new Config...")
-	b.config = new(Config)
+	b.config = Config{}
 	log.Println("NewBuilder(): Assigning value Create = true")
 	b.config.Create = true
 	log.Println("NewBuilder(): Assigning value Number = 42")
